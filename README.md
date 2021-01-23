@@ -7,6 +7,7 @@
 - src : 파이썬을 활용한 influxdb 사용하는 예제 코드를 작성합니다.
 - requiremnets.txt : influxdb와 연동하기 위한 DB connector 오픈소스 패키지를 명시헤놨습니다.
 - README.md : 기초적인 설치방법 및 간단한 파이썬 예제를 작성했습니다.
+- InfluxDBClient : 인플럭스DB에서 제공하는 오픈소스를 분석하는 공간
 
 ## 설치법
 
