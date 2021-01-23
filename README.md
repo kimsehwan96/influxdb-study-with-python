@@ -1,5 +1,12 @@
 # TSDB (Time Series DataBase) 중 하나인 influx db
 
+## 이 레포의 구조
+
+- docs : 공식 문서를 번역하고, 개인적으로 확인한 내용들을 추가합니다.
+- images : md파일에 들어갈 이미지들을 저장합니다.
+- src : 파이썬을 활용한 influxdb 사용하는 예제 코드를 작성합니다.
+- requiremnets.txt : influxdb와 연동하기 위한 DB connector 오픈소스 패키지를 명시헤놨습니다.
+- README.md : 기초적인 설치방법 및 간단한 파이썬 예제를 작성했습니다.
 
 ## 설치법
 
