@@ -66,3 +66,30 @@ census bees=28i,ants=32i 1566086760000000000
 > <strong>tag에 자주 쿼리되는 메타데이터를 저장할것을 추천한다!</strong>
 
 
+## Tags
+예제 데이터에서의 `location`과 `scientist` 칼럼이 tags입니다. Tags는 tag key들과 tag value들을 문자열과 메타데이터로서 갖고있습니다.
+
+### Tag key
+예제 데이터에서의 `location`과 `scientist`가 Tag key입니다. Tag key 필요조건에 대한 더 자세한 내용은 `Line protocol - Tag set`을 참조하세요 (추후 번역 예정)
+
+### Tag value
+`location`이라는 tag key는 총 2개의 `klamath`와 `portland`라는 tag value들을 갖습니다.   
+`scientist`라는 tag key는 총 `anderson` 과 `mullen`이라는 두개의 tag value들을 갖습니다. 자세한 내용은 `Line protocl - Tag set`을 참조하세요
+
+### Tag set
+태그 키 : 값 쌍의 집합을 Tag set이라고 합니다. 예제 데이터는 다음과 같은 태그 셋을 갖습니다.
+
+```text
+location = klamath, scientist = anderson
+location = portland, scientist = anderson
+location = klamath, scientist = mullen
+location = portland, scientist = mullen
+```
+
+> 태그들은 인덱싱 되었습니다: 태그는 옵션이라서, 무조건 여러분의 데이터 구조에 넣을 필요는 없습니다. 하지만 tag를 포함하는건 떄때로 매우 좋은 데이터에 대한 접근법이 됩니다.  
+> 태그들은 인덱싱 되었기 때문에 태그에 대해서 쿼리하믄 것은 필드에 대해 쿼리하는 것 보다 훨씬 빠릅니다. 
+> 따라서 자주 쿼리되는 데이터에 대해 태그를 이용해 메타데이터를 설정하는것은 좋은 아이디어입니다.
+
+> 태그에 매우 겹치지 않고 변화가 클만한 데이터. 그러니까 UUID나, 해쉬, 랜덤 문자열을 저장하는것은 좋은 아이디어가 아닙니다.
+> 데이터베이스가 더 많은 메모리를 쓰게 만듭니다.
+
