@@ -15,13 +15,13 @@
 - UI 있는 버전
 
 https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.3_darwin_amd64.tar.gz
-위 링크를 클릭해 다운로드
+이 링크를 클릭해 다운로드
 ```
 tar zxvf influxdb2-2.0.3_darwin_amd64.tar.gz
 ```
 
 - 압축 해제 이후 influx와 influxd를 특정 경로로 보내주어야 한다.
-- `sudo cp sudo cp influxdb2.0.3_darwin_amd64/{influx,influxd} /usr/local/bin/`
+- `sudo cp influxdb2-2.0.3_darwin_amd64/{influx,influxd} /usr/local/bin/`
 
 - 저 경로로 보내주면 mac 터미널에서 influx, influxd 와 같은 경로를 명시하지 않고도 두 바이너리 실행 가능하다~!
 
