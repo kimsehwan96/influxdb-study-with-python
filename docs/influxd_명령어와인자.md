@@ -1,0 +1,58 @@
+ ## influxd 의 명령어와 인자들 (공식 문서 번역 https://docs.influxdata.com/influxdb/v2.0/reference/cli/influxd/)
+
+- Commands
+    - `generate` : TOML 스키마를 사용하여 시계열 데이터 셋을 생성합니다 ex : `influxd generate`
+    - `inspect` : 디스크에 저장되어있는 데이터를 검사합니다
+    - `run` : 인플럭스 데몬 서버를 실행합니다. 명령어를 주지 않을경우 디폴트입니다 : ex : `influxd` , `influxd run` 두 명령어는 동일
+    - `version` : 인플럭스디비의 버전을 확인합니다.
+
+- Flags
+- --assets-path
+- --bolt-path
+- --e2e-testing
+- --engine-path
+- -h, --help
+- --http-bind-address
+- --influxql-max-select-buckets
+- --influxql-max-select-point
+- --influxql-max-select-series
+- --log-level
+- --new-meta-store
+- --new-meta-store-read-only
+- --no-tasks
+- --query-concurrency
+- --query-initial-memory-bytes
+- --query-max-memory-bytes
+- --query-memory-bytes
+- --query-queue-size
+- --reporting-disabled
+- --secret-store
+- --session-length
+- --session-renew-disabled
+- --storage-cache-max-memory-size
+- --storage-cache-snapshot-memory-size
+- --storage-cache-snapshot-write-cold-duration
+- --storage-compact-full-write-cold-duration
+- --storage-compact-throughput-burst
+- --storage-max-concurrent-compactions
+- --storage-max-index-log-file-size
+- --storage-retention-check-interval
+- --storage-series-file-max-concurrent-snapshot-compactions
+- --storage-series-id-set-cache-size
+- --storage-shard-precreator-advance-period
+- --storage-shard-precreator-check-interval
+- --storage-tsm-use-madv-willneed
+- --storage-validate-keys
+- --storage-wal-fsync-delay
+- --tls-cert
+- --tls-key
+- --tls-min-version
+- --tls-strict-ciphers
+- --tracing-type
+- --vault-client-key
+- --vault-max-retries
+- --vault-client-timeout
+- --vault-skip-verify
+- --vault-tls-server-name
+- --vault-token
+- 설명 중략. https://docs.influxdata.com/influxdb/v2.0/reference/cli/influxd/ 공식 페이지 참조
