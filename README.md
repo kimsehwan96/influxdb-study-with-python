@@ -52,3 +52,67 @@ tar zxvf influxdb2-2.0.3_darwin_amd64.tar.gz
 
 - 최초 셋업 설정
 
+## 초기 설정 이후 python3 와 커넥션 맺기
+
+- 다음 패키지를 설치해야 함
+    - `pip install influxdb-client`
+
+- 클라이언트 객체를 초기화 해야 함
+
+```python3
+from datetime import datetime
+
+from influxdb_client import InfluxDBClient, Point, WritePrecision
+from influxdb_client.client.write_api import SYNCHRONOUS
+
+# You can generate a Token from the "Tokens Tab" in the UI
+token = "s7osywpu7TghUKAMs9k1HYZkHsKgUG6YkvxFdGjGSsgMLEVl0TvxqvLByAeyQiY_1tT1UdjfPf1TxZbHFs6gUg=="
+org = "sehwan"
+bucket = "testBucket"
+
+client = InfluxDBClient(url="http://localhost:8086", token=token)
+```
+
+- 토큰은 자신의 조직에 대해서 발급 받을 수 있다. 위 코드로 client 객체를 초기화 함. (설정이라고 생각하면 됨)
+
+
+- 기존에 존재하는 Line 프로토콜을 이용해서 데이터 쌓기
+
+```python3
+write_api = client.write_api(write_options=SYNCHRONOUS)
+
+data = "mem,host=host1 used_percent=23.43234543"
+write_api.write(bucket, org, data)
+```
+
+- 데이터 포인트를 이용해 데이터를 쌓기
+
+```python3
+point = Point("mem")\\
+  .tag("host", "host1")\\
+  .field("used_percent", 23.43234543)\\
+  .time(datetime.utcnow(), WritePrecision.NS)
+
+write_api.write(bucket, org, point)
+```
+
+
+- 일괄처리 시퀀스를 이용해 데이터 쌓기
+
+```python3
+sequence = ["mem,host=host1 used_percent=23.43234543",
+            "mem,host=host1 available_percent=15.856523"]
+write_api.write(bucket, org, sequence)
+```
+
+- Flux 쿼리를 실쟁하기
+
+```python3
+query = f'from(bucket: \\"{bucket}\\") |> range(start: -1h)'
+tables = client.query_api().query(query, org=org)
+```
+
+- `used_percent` 에 대한 데이터를 쌓은 것에 대한 결과
+
+![4](images/4.png)
+
