@@ -1,7 +1,8 @@
 import influxdb_client
 from influxdb_client.client.write_api import SYNCHRONOUS
+from . import TOKEN
 
-token = "s7osywpu7TghUKAMs9k1HYZkHsKgUG6YkvxFdGjGSsgMLEVl0TvxqvLByAeyQiY_1tT1UdjfPf1TxZbHFs6gUg=="
+token = TOKEN
 org = "sehwan"
 bucket = "testBucket"
 # Store the URL of your InfluxDB instance

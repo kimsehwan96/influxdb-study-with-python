@@ -1,0 +1,2 @@
+TOKEN = "sZr7ksaAkHQVBLIF7OGckgtoYaI358hSYupqeLUfxJRVAMCaJjidX-omUUWUeOV9YIm4kxUk8IYarkDFEb-cIw=="
+BUCKET_NAME = "testBucket"

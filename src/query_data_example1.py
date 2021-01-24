@@ -1,9 +1,10 @@
 
 from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
+from . import TOKEN
 
 # You can generate a Token from the "Tokens Tab" in the UI
-token = "s7osywpu7TghUKAMs9k1HYZkHsKgUG6YkvxFdGjGSsgMLEVl0TvxqvLByAeyQiY_1tT1UdjfPf1TxZbHFs6gUg=="
+token = TOKEN
 #이 토큰은 sehwan이라는 조직에 대해서 유효한 토큰임.
 org = "sehwan"
 bucket = "testBucket"
