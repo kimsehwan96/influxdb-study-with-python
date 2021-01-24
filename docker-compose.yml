@@ -1,0 +1,21 @@
+version: '3'
+#influxdb 컨테이너와 grafana 컨테이너를 쉽게 실행하기 위한 도커 컴포즈 파이
+services:
+  influxdb:
+    image: quay.io/influxdb/influxdb:v2.0.3
+    container_name: influxdb
+    ports: 
+      - "8086:8086"
+    #데이터가 휘발되지 않게 하기 위해서 로컬에 있는 특정 볼륨과 연동
+    #mkdir -p /Users/gimsehwan/docker/influx/data
+    volumes:
+      - /Users/gimsehwan/docker/influx/data:/var/lib/influxdb
+      #내 로컬볼륨 리소스와 influxdb 도커 컨테이너의 볼륨을 연동!
+
+  grafana:
+    image: grafana/grafana:7.3.7-ubuntu
+    ports:
+      - "3000:3000"
+    user: "0"
+    links:
+      - influxdb
