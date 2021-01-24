@@ -16,10 +16,15 @@ services:
     image: grafana/grafana:7.3.7-ubuntu
     ports:
       - "3000:3000"
+    #데이터가 휘발되지 않게 하기 위해서 로컬에 있는 특정 볼륨과 연동
+    #mkdir -p /Users/gimsehwan/grafana/data/data
+    #sudo chown 472 /Users/gimsehwan/docker/grafana/data
+    volumes:
+      - /Users/gimsehwan/docker/grafana/data:/var/lib/influxdb
     user: "0"
     links:
       - influxdb
 
 #links를 위 같이 작성하면. influxdb라고 url를 요청하면
 #자동으로 influxdb의 내부 ip address와 port를 찾아 들어감 !
-#TODO: 그라파나 컨테이너 내부에 설정파일들이 어디 저장되는지 확인해서 dockercompse에 명시하기. 호스트 OS의 볼륨과 연결하기!
+
