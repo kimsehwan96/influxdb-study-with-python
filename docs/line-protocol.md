@@ -56,7 +56,7 @@ measurementName fieldKey="field string value" 1556813561098000000
 
 > ### 타임 스탬프관련 중요사항
 > - 만약 데이터가 `수집된` 시간을 보장하기 위해서는 타임스탬프를 InlfuxDB가 찍게하지 마시고, 타임스탬프를 찍어서 InfluxDB에 넣으세요.
-> - 만약 타임스탬프에 나노초가 없다면. 데이터 쓰기 작업을 할 때 타임스탬프의 정확도(precision)를 명시해야 합니다.
+> - 만약 타임스탬프에 나노초가 없다면. 데이터 쓰기 작업을 할 때 타임스탬프의 정밀도(precision)를 명시해야 합니다.
 
 ### Whitespace
 
@@ -67,3 +67,92 @@ measurementName,tagKey=tagValue fieldKey="fieldValue" 1465839830100400200
                                |                     |
                            1st space             2nd space
 ```                        
+
+## 데이터 타입과 포맷
+
+### Float
+IEEE-754 규격에 맞는 64-bit 부동 소수점 데이터입니다. 숫자형 데이터의 디폴트 타입이며, InfluxDB는 과학적 표기법을 지원합니다.
+
+<strong> Float 필드 값 예제 </strong>
+
+```console
+myMeasurement fieldKey=1.0
+myMeasurement fieldKey=1
+myMeasurement fieldKey=-1.234456e+78
+```
+
+### Integer
+부호있는 64bits 정수형 데이터입니다. 데이터의 맨 끝의 i가 이 값이 정수형 데이터라는것을 명시합니다.
+
+![5](images/5.png)
+
+<strong> Integer 필드 값 예제 </strong>
+
+```console
+myMeasurement fieldKey=1i
+myMeasurement fieldKey=12485903i
+myMeasurement fieldKey=-12485903i
+```
+
+### UInteger
+부호 없는 64bits 정수형 데이터입니다. 데이터의 맨 끝 u가 이 데이터가 부호없는 정수형이라는것을 명시합니다.
+
+![6](images/6.png)
+
+<strong> UInteger 필드 값 예제 </strong>
+
+```console
+myMeasurement fieldKey=1u
+myMeasurement fieldKey=12485903u
+```
+
+### Strinig
+순수한 텍스트 문자열입니다. 길이 최대치는 64KB입니다.
+
+<strong> String 필드 값 예제 </strong>
+
+```console
+# String measurement name, field key, and field value
+myMeasurement fieldKey="this is a string"
+```
+
+### Boolean
+`true` 혹은 `false` 값을 저장합니다.
+
+![7](images/7.png)
+
+<strong> Boolean 필드 값 예제 </strong>
+
+```console
+myMeasurement fieldKey=true
+myMeasurement fieldKey=false
+myMeasurement fieldKey=t
+myMeasurement fieldKey=f
+myMeasurement fieldKey=TRUE
+myMeasurement fieldKey=FALSE
+```
+
+> 불리언 필드 값에 절대로 `"`을 사용하지 마세요. 그렇게하면 InfluxDB는 문자열로 인식할거에요 :(
+
+### UNIX timestamp
+정밀도가 명시된 유닉스 타임스탬프 값입니다. 디폴트 정밀도는 nanosecond (ns)에요.
+
+![8](images/8.png)
+
+<strong> Unix timestamp 값 예제 </strong>
+
+```console
+myMeasurementName fieldKey="fieldValue" 1556813561098000000
+```
+
+### Quotes (인용문자, 큰따옴표, 작은따옴표)
+라인 프로토콜은 큰따옴표와 작은따옴표 둘다 지원해요.
+
+![9](images/9.png)
+
+라인 프로토콜은 measurement 의 이름과, 태그 키, 태그 값 그리고 필드 값들에 대해서 큰따옴표 (`"`)와 작은따옴표 (`'`) 둘다 지원해요.
+하지만 그것들을 이름, 키, 값들의 부분으로 해석할거에요.
+
+### 네이밍 규칙
+Measurement의 이름과, 태그 키들, 그리고 필드 값들은 절대로 `_` 이 언더스코어로 시작 할 수 없어요. `_`의 네임스페이스는 InfluxDB의 내부 시스템이 예약하고 있거든여.
+
