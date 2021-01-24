@@ -19,3 +19,6 @@ services:
     user: "0"
     links:
       - influxdb
+
+#links를 위 같이 작성하면. influxdb라고 url를 요청하면
+#자동으로 influxdb의 내부 ip address와 port를 찾아 들어감 !
