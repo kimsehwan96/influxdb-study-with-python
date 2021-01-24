@@ -3,6 +3,7 @@ from influxdb_client import Point, WritePrecision
 from time import sleep
 from random import uniform
 
+#내가 편하기 위해서 만든 두 클래스..
 class RandomConfig:
     def __init__(self, measurement_name:str, tag_pair: list or tuple, field_name: str):
         self.measurement_name = measurement_name
