@@ -125,5 +125,57 @@ tables = client.query_api().query(query, org=org)
 
 ![4](images/4.png)
 
+## 그라파나와 influxdb를 쉽게 사용하기 위한 방법!
 
+- 그라파나와 influxdb 모두 도커 컨테이너로 실행하면 사용하기 편리하다.
+- 원리는 그라파나 이미지와 influxdb 이미지를 docker pull하고, 그 이미지들을 특정 port를 export하여 사용하는 것인데
+- 그라파나는 3000번, influxdb는 8086번으로 지정하고, host os의 포트와 컨테이너 내부 port를 맞추어서 사용하게 된다.
+- 이 때 각 컨테이너를 실행하는 명령어를 입력하기 너무 귀찮으니까. 도커 컴포즈 파일을 내가 만들었다!
+
+```yml
+version: '3'
+#influxdb 컨테이너와 grafana 컨테이너를 쉽게 실행하기 위한 도커 컴포즈 파이
+services:
+  influxdb:
+    image: quay.io/influxdb/influxdb:v2.0.3
+    container_name: influxdb
+    ports: 
+      - "8086:8086"
+    #데이터가 휘발되지 않게 하기 위해서 로컬에 있는 특정 볼륨과 연동
+    #mkdir -p /Users/gimsehwan/docker/influx/data
+    volumes:
+      - /Users/gimsehwan/docker/influx/data:/var/lib/influxdb
+      #내 로컬볼륨 리소스와 influxdb 도커 컨테이너의 볼륨을 연동!
+
+  grafana:
+    image: grafana/grafana:7.3.7-ubuntu
+    ports:
+      - "3000:3000"
+    user: "0"
+    links:
+      - influxdb
+
+#links를 위 같이 작성하면. influxdb라고 url를 요청하면
+#자동으로 influxdb의 내부 ip address와 port를 찾아 들어감 !
+```
+
+- 사용법은 간단하다. docker-compose를 설치하고.
+- 위 yml파일의 파일 이름을 docker-compose.yml로 지정하여 생성한다.
+
+- `volumes` 에 있는 `/Users/gimsehwan/docker/influx/data` 경로를 본인이 원하는 경로로 `mkdir`를 한다.
+  - 이것을 하는 이유는 도커 컨테이너가 끝나더라도, DB에 저장되는 값을 로컬 머신에 저장하여, 다음에 컨테이너를 실행할때도 저 정보를 갖고서 실행하게 되기 때문!
+
+- 이후 `docker-compose -d up` 을 하면 호스트의 localhost:3000 으로 그라파나를 접근 가능하고, localhost:8086으로 인플럭스디비를 접근 가능하다!
+
+- 그라파나에서 데이터소스를 설정할때 다음 사항을 유의하면 된다!
+
+![5](images/5.png)
+
+- 첫번째. 데이터베이스 url을 http://localhost:8086 이 아닌 http://influxdb:8086 으로 정의할것!
+- 도커 컴포즈 link 옵션으로 인플럭스 디비 컨테이너를 influxdb 라는 이름으로 (일종의 DNS라고 생각하면 됨) 접근하도록 해놨다.
+- 따라서 influxdb 라고 접근해야 한다
+
+### 왜 localhost:8086은 안되나요?
+- 그라파나 설정에서 localhost:8086으로 접근하게 되면, 그라파나 서버가 떠있는 컨테이너의 localhost:8086을 찾아가게 되는 것임.
+- 호스트 OS의 8086도 아니고, 인플럭스 디비의 8086번도 아님. 따라서 influxdb라고 접근해야 influxdb가 떠있는 컨테이너로 찾아가게 됨 !
 
