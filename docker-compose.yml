@@ -22,3 +22,4 @@ services:
 
 #links를 위 같이 작성하면. influxdb라고 url를 요청하면
 #자동으로 influxdb의 내부 ip address와 port를 찾아 들어감 !
+#TODO: 그라파나 컨테이너 내부에 설정파일들이 어디 저장되는지 확인해서 dockercompse에 명시하기. 호스트 OS의 볼륨과 연결하기!
