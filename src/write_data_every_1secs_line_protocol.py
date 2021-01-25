@@ -15,8 +15,8 @@ write_api = client.write_api(write_options=SYNCHRONOUS)
 #데이터 쓸 api 인스턴스를 생성함.
 
 args=(write_api,"mem",["host", "host1"], "user_percent")
-
-def write_thread(apiclient: WriteApi, measurement: str, tag_pair:tuple or list, field_key: str):
+#데이터의 timestamp를 DB에서 찍게되는 예제임.
+def write_thread(apiclient: WriteApi, measurement: str, tag_pair:tuple or list, field_key: str) -> None:
     line_data = "{},{}={} {}={}".format(measurement, tag_pair[0], tag_pair[1], field_key, uniform(1,100))
     apiclient.write(BUCKET, ORG, line_data)
     print("data was sent : {}".format(line_data))

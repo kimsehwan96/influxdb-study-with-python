@@ -5,7 +5,7 @@ from random import uniform
 
 #내가 편하기 위해서 만든 두 클래스..
 class RandomConfig:
-    def __init__(self, measurement_name:str, tag_pair: list or tuple, field_name: str):
+    def __init__(self, measurement_name:str, tag_pair: list or tuple, field_name: str) -> None:
         self.measurement_name = measurement_name
         self.tag_pair = tag_pair
         self.field_name = field_name
@@ -17,7 +17,7 @@ class RandomConfig:
         self.end = end
 
 class RandomGenrator:
-    def __init__(self, random_config:RandomConfig):
+    def __init__(self, random_config:RandomConfig) -> None:
         self.measurement_name = random_config.measurement_name
         self.tag_pair = random_config.tag_pair
         self.field_name = random_config.field_name

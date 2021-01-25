@@ -25,7 +25,7 @@ rg2 = RandomGenrator(config_2)
 
 rgs = [rg1, rg2]
 
-def write_thread(rg:RandomGenrator, write_api: WriteApi, bucket, org):
+def write_thread(rg:RandomGenrator, write_api: WriteApi, bucket, org)-> None:
     while True:
         write_api.write(bucket, org, rg.get_random_point())
         print("data was sent!")
