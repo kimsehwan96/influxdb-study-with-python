@@ -14,11 +14,11 @@ services:
 
   grafana:
     image: grafana/grafana:7.3.7-ubuntu
+    container_name: grafana
     ports:
       - "3000:3000"
     #데이터가 휘발되지 않게 하기 위해서 로컬에 있는 특정 볼륨과 연동
     #mkdir -p /Users/gimsehwan/grafana/data/data
-    #sudo chown 472 /Users/gimsehwan/docker/grafana/data
     volumes:
       - /Users/gimsehwan/docker/grafana/data:/var/lib/grafana
     user: "0"
