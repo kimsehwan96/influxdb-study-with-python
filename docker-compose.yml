@@ -20,7 +20,7 @@ services:
     #mkdir -p /Users/gimsehwan/grafana/data/data
     #sudo chown 472 /Users/gimsehwan/docker/grafana/data
     volumes:
-      - /Users/gimsehwan/docker/grafana/data:/var/lib/influxdb
+      - /Users/gimsehwan/docker/grafana/data:/var/lib/grafana
     user: "0"
     links:
       - influxdb
