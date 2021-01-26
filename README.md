@@ -142,21 +142,28 @@ services:
     ports: 
       - "8086:8086"
     #데이터가 휘발되지 않게 하기 위해서 로컬에 있는 특정 볼륨과 연동
-    #mkdir -p /Users/gimsehwan/docker/influx/data
     volumes:
-      - /Users/gimsehwan/docker/influx/data:/var/lib/influxdb
-      #내 로컬볼륨 리소스와 influxdb 도커 컨테이너의 볼륨을 연동!
-
+      - /Users/gimsehwan/docker/influx/data:/var/lib/influxdb2
+    command: influxd run --bolt-path /var/lib/influxdb2/influxd.bolt --engine-path /var/lib/influxdb2/engine --store bolt
+    #influxdb v2 버전의 경우, 컨테이너 내부의 DB 경로와, 특정 command를 사용해야 데이터가 휘발되지 않습니다.
+    #위 volumes와 command를 사용하면 해당 이슈 없습니다.
   grafana:
     image: grafana/grafana:7.3.7-ubuntu
+    container_name: grafana
     ports:
       - "3000:3000"
+    #데이터가 휘발되지 않게 하기 위해서 로컬에 있는 특정 볼륨과 연동
+    #mkdir -p /Users/gimsehwan/grafana/data/data
+    volumes:
+      - /Users/gimsehwan/docker/grafana/data:/var/lib/grafana
     user: "0"
     links:
       - influxdb
 
 #links를 위 같이 작성하면. influxdb라고 url를 요청하면
 #자동으로 influxdb의 내부 ip address와 port를 찾아 들어감 !
+
+
 ```
 
 - 사용법은 간단하다. docker-compose를 설치하고.
